@@ -21,13 +21,13 @@ def drawField(field):
     for row in range(6):
         if row%2 == 0:
             practicalRow = int(row/2)
-            for column in range(7):
+            for column in range(13):
                 if column%2 == 0:
                     practicalColumn = int(column/2)
-                    if column != 6:
-                        print(field[practicalColumn][practicalRow],end="")
+                    if column != 12:
+                        print(field[int(practicalColumn/2)][int(practicalRow/2)],end="")
                     else:
-                        print(field[practicalColumn][practicalRow])
+                        print(field[int(practicalColumn/2)][int(practicalRow/2)])
                 else:
                     print("|",end="")
         else:
