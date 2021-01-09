@@ -15,23 +15,22 @@ Rules:
 
 """
 
-# import termcolor
+import termcolor
 
 def drawField(field):
-    for row in range(6):
-        if row%2 == 0:
-            practicalRow = int(row/2)
-            for column in range(13):
-                if column%2 == 0:
-                    practicalColumn = int(column/2)
-                    if column != 12:
-                        print(field[int(practicalColumn/2)][int(practicalRow/2)],end="")
+    for vertical in range(6):
+        for horizontal in range(7):
+                if horizontal < 6:
+                    if field[int(vertical)][int(horizontal)] == 'X':
+                        print(termcolor.colored(field[int(vertical)][int(horizontal)],'red'),' | ',end="")
                     else:
-                        print(field[int(practicalColumn/2)][int(practicalRow/2)])
+                        print(termcolor.colored(field[int(vertical)][int(horizontal)],'blue'),' | ',end="")
                 else:
-                    print("|",end="")
-        else:
-            print("-------------")
+                    if field[int(vertical)][int(horizontal)] == 'X':
+                        print(termcolor.colored(field[int(vertical)][int(horizontal)],'red'))
+                    else:
+                        print(termcolor.colored(field[int(vertical)][int(horizontal)],'blue'))
+                    print("--------------------------------")
 
 Player = 1
 currentField = [[" "," "," "," "," "," "," "],
@@ -40,21 +39,23 @@ currentField = [[" "," "," "," "," "," "," "],
                 [" "," "," "," "," "," "," "],
                 [" "," "," "," "," "," "," "],
                 [" "," "," "," "," "," "," "]]
-
+autoVertical = [5,5,5,5,5,5,5]
 drawField(currentField)
 
 while(True):
     print("Player turn: ",str(Player))
-    MoveRow = int(input("Please enter de row between 1 and 3:\n"))-1
-    MoveColumn = int(input("Please enter de column between 1 and 3:\n"))-1
+    SelectHorizontal = int(input("Please enter de column between 1 and 7:\n"))-1
+    SelectVertical = autoVertical[SelectHorizontal]
     if Player == 1:
         #make move for Player 1
-        if currentField[MoveColumn][MoveRow] == " ":
-            currentField[MoveColumn][MoveRow] = "X"
+        if currentField[SelectVertical][SelectHorizontal] == " ":
+            currentField[SelectVertical][SelectHorizontal] = "X"
             Player = 2
     else:
         #make move for Player 2
-        if currentField[MoveColumn][MoveRow] == " ":
-            currentField[MoveColumn][MoveRow] = "O"
+        if currentField[SelectVertical][SelectHorizontal] == " ":
+            currentField[SelectVertical][SelectHorizontal] = "O"
             Player = 1
+    if autoVertical[SelectHorizontal] != 0:
+        autoVertical[SelectHorizontal] -=1
     drawField(currentField)
